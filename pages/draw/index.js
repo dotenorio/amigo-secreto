@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Link from 'next/link'
 
 import styles from '../../styles/Draw.module.css'
 import Title from '../../components/title'
@@ -9,7 +10,6 @@ const Home = () => {
   const [error, setError] = useState(false);
 
   const verifyPassword = () => {
-    console.log(input)
     if (input !== '' && input === 'banana') {
       setPassword(true)
       setError(false)
@@ -61,12 +61,12 @@ const Home = () => {
 
       <div className={styles.card}>
         <b>Mariana</b>
-        <a href="/i-caught/123" className={styles.link}>copiar link</a>
+        <Link href="/i-caught/123" className={styles.link}>copiar link</Link>
       </div>
 
       <div className={styles.card}>
         <b>Giovana</b>
-        <a href="/i-caught/456" className={styles.link}>copiar link</a>
+        <Link href="/i-caught/456" className={styles.link}>copiar link</Link>
       </div>
     </>
   )
