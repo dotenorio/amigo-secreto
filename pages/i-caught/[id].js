@@ -1,18 +1,29 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import useSWR from 'swr'
 
 import styles from '../../styles/ICaught.module.css'
 import Title from '../../components/title'
-
-const fetcher = (url) => fetch(url).then((res) => res.json())
 
 const Token = () => {
   const router = useRouter()
   const { id } = router.query
   const [reveal, setReveal] = useState(false)
-  const { data } = useSWR(`/api/contentful/persons/${id}`, fetcher)
-  const { data: caugth } = useSWR(`/api/contentful/persons/${data.fields.caugth.sys.id}`, fetcher)
+  const [person, setPerson] = useState(false)
+  const [caugth, setCaugth] = useState(false)
+
+  useEffect(async () => {
+    if (id) {
+      const res = await fetch(`/api/contentful/persons/${id}`)
+      setPerson(await res.json())
+    }
+  }, [id])
+
+  useEffect(async () => {
+    if (person) {
+      const res = await fetch(`/api/contentful/persons/${person.fields.caugth.sys.id}`)
+      setCaugth(await res.json())
+    }
+  }, [person])
 
   return (
     <>
