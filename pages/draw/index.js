@@ -1,13 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import useSWR from 'swr'
 
 import styles from '../../styles/Draw.module.css'
 import Title from '../../components/title'
+
+const fetcher = (url) => fetch(url).then((res) => res.json())
 
 const Home = () => {
   const [password, setPassword] = useState(false);
   const [input, setInput] = useState('');
   const [error, setError] = useState(false);
+  const { data } = useSWR('/api/contentful/persons', fetcher)
+  const [adaptedData, setAdaptedData] = useState(false);
+
+  useEffect(() => {
+    if (data) {
+      setAdaptedData(data.items.map(item => ({ id: item.sys.id, ...item.fields })))
+    }
+  }, [data, setAdaptedData])
 
   const verifyPassword = () => {
     if (input !== '' && input === 'banana') {
@@ -59,15 +70,12 @@ const Home = () => {
         description='Links para mandar no zap...'
       />
 
-      <div className={styles.card}>
-        <b>Mariana</b>
-        <Link href="/i-caught/123">copiar link</Link>
-      </div>
-
-      <div className={styles.card}>
-        <b>Giovana</b>
-        <Link href="/i-caught/456">copiar link</Link>
-      </div>
+      {adaptedData && adaptedData.map(data => (
+        <div className={styles.card} key={data.id}>
+          <b>{data.name}</b>
+          <Link href={`/i-caught/${data.id}`}>copiar link</Link>
+        </div>
+      ))}
     </>
   )
 }

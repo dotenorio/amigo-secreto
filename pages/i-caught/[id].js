@@ -1,13 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import useSWR from 'swr'
 
 import styles from '../../styles/ICaught.module.css'
 import Title from '../../components/title'
 
+const fetcher = (url) => fetch(url).then((res) => res.json())
+
 const Token = () => {
   const router = useRouter()
-  const { token } = router.query
-  const [reveal, setReveal] = useState()
+  const { id } = router.query
+  const [reveal, setReveal] = useState(false)
+  const { data } = useSWR(`/api/contentful/persons/${id}`, fetcher)
+  const { data: caugth } = useSWR(`/api/contentful/persons/${data.fields.caugth.sys.id}`, fetcher)
 
   return (
     <>
@@ -19,7 +24,7 @@ const Token = () => {
       {reveal ? (
         <div className={styles.name}>
           <p>Você pegou:</p>
-          <b>Fernando {token}</b>
+          <b>{caugth.fields.name}</b>
         </div>
       ) : (
         <div className={styles.noName}>
