@@ -1,0 +1,75 @@
+.card {
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.card:hover,
+.card:active {
+  background-color: #eee;
+}
+
+.link {
+  color: #4a54e6;
+}
+
+.link:hover,
+.link:active {
+  color: #3641e7;
+  text-decoration: underline;
+}
+
+.input {
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 20px 0;
+  outline: none;
+  text-align: center;
+}
+
+.input:focus {
+  box-shadow: 0 0 10px rgba(204, 204, 204, 0.8);
+}
+
+.message,
+.error {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.message {
+  color: #000;
+}
+
+.error {
+  color: red;
+}
+
+.button {
+  padding: 0;
+  border: none;
+  background-color: #4a54e6;
+  padding: 10px; 
+  font-size: 18px;
+  border-radius: 4px;
+  color: #fff;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.button:hover {
+  background-color: #5a63e2;
+  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.8);
+}
+
+.button:active {
+  background-color: #3641e7;
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
+}
