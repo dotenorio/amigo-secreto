@@ -12,7 +12,7 @@ const Token = () => {
   const { id } = router.query
   const [reveal, setReveal] = useState(false)
   const { data } = useSWR(`/api/contentful/persons/${id}`, fetcher)
-  const { data: caugth } = useSWR(`/api/contentful/persons/${data.fields.caugth.sys.id}`, fetcher)
+  const { data: caugth } = useSWR(`/api/contentful/persons/${data.fields?.caugth.sys.id}`, fetcher)
 
   return (
     <>
