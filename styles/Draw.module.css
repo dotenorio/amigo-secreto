@@ -1,11 +1,10 @@
 .card {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-  padding: 15px;
+  padding: 1rem;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
   border-radius: 4px;
 }
 
@@ -14,12 +13,12 @@
   background-color: #eee;
 }
 
-.link {
+.card > a {
   color: #4a54e6;
 }
 
-.link:hover,
-.link:active {
+.card > a:hover,
+.card > a:active {
   color: #3641e7;
   text-decoration: underline;
 }
@@ -27,8 +26,8 @@
 .input {
   border: 1px solid #ccc;
   width: 100%;
-  font-size: 20px;
-  padding: 10px;
+  font-size: 1.3rem;
+  padding: 0.8rem;
   border-radius: 4px;
   margin: 20px 0;
   outline: none;
@@ -46,7 +45,7 @@
 }
 
 .message {
-  color: #000;
+  color: green;
 }
 
 .error {
@@ -57,8 +56,8 @@
   padding: 0;
   border: none;
   background-color: #4a54e6;
-  padding: 10px; 
-  font-size: 18px;
+  padding: 0.8rem; 
+  font-size: 1.1rem;
   border-radius: 4px;
   color: #fff;
   box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);

@@ -61,12 +61,12 @@ const Home = () => {
 
       <div className={styles.card}>
         <b>Mariana</b>
-        <Link href="/i-caught/123" className={styles.link}>copiar link</Link>
+        <Link href="/i-caught/123">copiar link</Link>
       </div>
 
       <div className={styles.card}>
         <b>Giovana</b>
-        <Link href="/i-caught/456" className={styles.link}>copiar link</Link>
+        <Link href="/i-caught/456">copiar link</Link>
       </div>
     </>
   )

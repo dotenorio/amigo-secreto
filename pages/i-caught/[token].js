@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 
+import styles from '../../styles/ICaught.module.css'
 import Title from '../../components/title'
 
 const Token = () => {
@@ -13,11 +14,10 @@ const Token = () => {
         description='...e guarde esse nome com carinho :)'
       />
 
-      <p>
-        Você pegou:
-        {' '}
+      <div className={styles.name}>
+        <p>Você pegou:</p>
         <b>Fernando {token}</b>
-      </p>
+      </div>
     </>
   )
 }

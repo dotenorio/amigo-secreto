@@ -1,0 +1,16 @@
+.name {
+  text-align: center;
+  width: 80%;
+}
+
+.name > b {
+  font-size: 2rem;
+  color: green;
+  border: 1px solid green;
+  padding: 1rem;
+  margin-top: 10px;
+  display: block;
+  border-radius: 4px;
+  background-color: #beffbe;
+  box-shadow: 1px 1px 3px rgba(0, 128, 0, 0.8)
+}
