@@ -40,12 +40,12 @@ const Token = () => {
 
       {reveal ? (
         <div className={styles.name}>
-          <p>Você pegou:</p>
+          <p>Oi, <b>{person?.fields?.name}</b>! Você pegou:</p>
           <b>{caught.fields.name}</b>
         </div>
       ) : (
         <div className={styles.noName}>
-          <p>Clique para revelar...</p>
+          <p>Oi, <b>{person?.fields?.name}</b>! Clique para revelar...</p>
           <b onClick={() => setReveal(true)}>?????????</b>
           <p>
             <i>Tenha certeza que ninguém está olhando o_o</i>
