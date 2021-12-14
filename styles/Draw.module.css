@@ -1,11 +1,23 @@
+.cardList {
+  height: 340px;
+  overflow: auto;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.5rem 0 1rem;
+  background-color: #eee;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
 .card {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   padding: 1rem;
-  width: 100%;
+  width: 80%;
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
+  margin: 10px auto;
   border-radius: 4px;
+  background-color: #fff;
 }
 
 .card:hover,

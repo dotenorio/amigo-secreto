@@ -70,12 +70,14 @@ const Home = () => {
         description='Links para mandar no zap...'
       />
 
-      {adaptedData && adaptedData.map(data => (
-        <div className={styles.card} key={data.id}>
-          <b>{data.name}</b>
-          <Link href={`/i-caught/${data.id}`}>copiar link</Link>
-        </div>
-      ))}
+      <div className={styles.cardList}>
+        {adaptedData && adaptedData.map(data => (
+          <div className={styles.card} key={data.id}>
+            <b>{data.name}</b>
+            <Link href={`/i-caught/${data.id}`}>copiar link</Link>
+          </div>
+        ))}
+      </div>
     </>
   )
 }

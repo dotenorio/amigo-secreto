@@ -9,7 +9,7 @@ const Token = () => {
   const { id } = router.query
   const [reveal, setReveal] = useState(false)
   const [person, setPerson] = useState(false)
-  const [caugth, setCaugth] = useState(false)
+  const [caught, setCaught] = useState(false)
 
   useEffect(async () => {
     if (id) {
@@ -19,9 +19,15 @@ const Token = () => {
   }, [id])
 
   useEffect(async () => {
-    if (person) {
-      const res = await fetch(`/api/contentful/persons/${person.fields.caugth.sys.id}`)
-      setCaugth(await res.json())
+    if (person && person.fields.caught) {
+      const res = await fetch(`/api/contentful/persons/${person.fields.caught.sys.id}`)
+      setCaught(await res.json())
+    } else {
+      setCaught({
+        fields: {
+          name: 'Ainda não foi sorteado :('
+        }
+      })
     }
   }, [person])
 
@@ -35,7 +41,7 @@ const Token = () => {
       {reveal ? (
         <div className={styles.name}>
           <p>Você pegou:</p>
-          <b>{caugth.fields.name}</b>
+          <b>{caught.fields.name}</b>
         </div>
       ) : (
         <div className={styles.noName}>
