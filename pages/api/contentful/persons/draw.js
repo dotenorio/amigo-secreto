@@ -1,32 +1,31 @@
-import axios from 'axios'
+// import axios from 'axios'
 
+// import {
+//   contentManagerAdaptUrl,
+//   accessToken
+// } from '../../../../utils/contentful-adapt-url'
 
-import {
-  contentManagerAdaptUrl,
-  accessToken
-} from '../../../../utils/contentful-adapt-url'
+// const handleCaught = (id, onlyItems) => {
+//   const caught = onlyItems[Math.floor(Math.random() * onlyItems.length)];
 
-const handleCaught = (id, onlyItems) => {
-  const caught = onlyItems[Math.floor(Math.random() * onlyItems.length)];
+//   if (caught.sys.id === id) {
+//     return handleCaught(id, onlyItems)
+//   }
 
-  if (caught.sys.id === id) {
-    return handleCaught(id, onlyItems)
-  }
+//   return caught
+// }
 
-  return caught
-}
+// const shuffleArray = (array) => {
+//   for (let i = array.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [array[i], array[j]] = [array[j], array[i]];
+//   }
 
-const shuffleArray = (array) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-
-  return array
-}
+//   return array
+// }
 
 export default async function handler(_req, res) {
-  const { data } = await axios({
+  /* const { data } = await axios({
     url: contentManagerAdaptUrl('/entries'),
     method: 'get',
     headers: {
@@ -94,7 +93,7 @@ export default async function handler(_req, res) {
     })
   }
 
-  console.log('Sucesso!')
+  console.log('Sucesso!')*/
 
   res.status(200).json({ success: true })
 }
