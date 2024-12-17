@@ -11,24 +11,30 @@ const Token = () => {
   const [person, setPerson] = useState(false)
   const [caught, setCaught] = useState(false)
 
-  useEffect(async () => {
-    if (id) {
-      const res = await fetch(`/api/contentful/persons/${id}`)
-      setPerson(await res.json())
+  useEffect(() => {
+    const fetchData = async () => {
+      if (id) {
+        const res = await fetch(`/api/contentful/persons/${id}`)
+        setPerson(await res.json())
+      }
     }
+    fetchData()
   }, [id])
 
-  useEffect(async () => {
-    if (person && person.fields.caught) {
-      const res = await fetch(`/api/contentful/persons/${person.fields.caught.sys.id}`)
-      setCaught(await res.json())
-    } else {
-      setCaught({
-        fields: {
-          name: 'Ainda não foi sorteado :('
-        }
-      })
+  useEffect(() => {
+    const fetchData = async () => {
+      if (person && person.fields.caught) {
+        const res = await fetch(`/api/contentful/persons/${person.fields.caught.sys.id}`)
+        setCaught(await res.json())
+      } else {
+        setCaught({
+          fields: {
+            name: 'Ainda não foi sorteado :('
+          }
+        })
+      }
     }
+    fetchData();
   }, [person])
 
   return (
