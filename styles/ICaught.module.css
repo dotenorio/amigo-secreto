@@ -1,41 +1,58 @@
 .name,
 .noName {
   text-align: center;
-  width: 80%;
+  width: 100%;
+  max-width: 480px;
 }
 
 .name > b,
-.noName > b {
+.revealButton {
   font-size: 2rem;
-  color: green;
-  border: 1px solid green;
   padding: 1rem;
   margin-top: 10px;
   display: block;
+  width: 100%;
   border-radius: 4px;
-  background-color: #beffbe;
-  box-shadow: 1px 1px 3px rgba(0, 128, 0, 0.8)
 }
 
-.noName > b {
+.name > b {
+  color: green;
+  border: 1px solid green;
+  background-color: #beffbe;
+  box-shadow: 1px 1px 3px rgba(0, 128, 0, 0.8);
+}
+
+.revealButton {
   border: none;
-  background-color: #4a54e6; 
+  background-color: #4a54e6;
   color: #fff;
+  font-weight: bold;
+  font-family: inherit;
   box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
   cursor: pointer;
 }
 
-.noName > b:hover {
+.revealButton:hover {
   background-color: #5a63e2;
   box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.8);
 }
 
-.noName > b:active {
+.revealButton:active {
   background-color: #3641e7;
   box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-.noName > p > i {
+.hide {
+  margin-top: 1rem;
+  background: none;
+  border: none;
+  color: #666;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.noName > p > i,
+.name > p > i {
   font-size: 0.9rem;
   color: #666;
 }

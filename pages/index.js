@@ -12,7 +12,7 @@ const Home = () => (
 
     <Link href="/draw">
       <button className={styles.button}>
-        Ver Sorteio
+        Área do organizador
       </button>
     </Link>
   </>
