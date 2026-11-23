@@ -79,7 +79,7 @@ const MyWishes = ({ token, initial }) => {
   return (
     <form className={styles.myWishes} onSubmit={save}>
       <h2>📝 O que você quer ganhar</h2>
-      <p className={styles.muted}>Só quem tirou você vai ver.</p>
+      <p className={styles.muted}>Sua lista também aparece na <a href='/presentes' target='_blank' rel='noopener'>lista de presentes</a> da família.</p>
 
       {rows.map((row, i) => (
         <fieldset key={i} className={styles.wishRow}>

@@ -18,6 +18,12 @@ const Home = () => (
       cadastra as suas 2 opções de presente.
     </p>
 
+    <Link href="/presentes">
+      <button className={`${styles.button} ${styles.spaced}`}>
+        Ver lista de presentes 🎁
+      </button>
+    </Link>
+
     <Link href="/draw">
       <button className={styles.button}>
         Área do organizador
