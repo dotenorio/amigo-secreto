@@ -4,7 +4,7 @@ const Footer = () => (
   <footer className={styles.footer}>
     Powered by
     {' '}
-    Litle Fernando
+    Little Fernando
   </footer>
 )
 

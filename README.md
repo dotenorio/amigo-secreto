@@ -1,34 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Amigo Secreto da Família 🎁
 
-## Getting Started
+Sorteio de amigo secreto feito em Next.js, com os participantes cadastrados no Contentful.
+Cada pessoa recebe pelo WhatsApp um link secreto que mostra só quem *ela* tirou.
 
-First, run the development server:
+## Como funciona
+
+1. Cadastre e **publique** as pessoas no Contentful (tipo de conteúdo `people`).
+2. Entre em `/draw` com a senha do organizador e clique em **Fazer sorteio**.
+3. Para cada pessoa, clique em **WhatsApp**. O WhatsApp abre com a mensagem e o link prontos. A lista marca quem já recebeu (só no seu navegador).
+4. A pessoa abre o link e clica para revelar o nome.
+
+O sorteio embaralha a lista e forma uma roda (cada um tira o próximo). Por isso ninguém tira a si mesmo e o sorteio nunca trava.
+Nem o organizador vê o resultado: a área do organizador e a API nunca mostram quem tirou quem.
+
+Os links são fixos para cada pessoa, mesmo que o sorteio seja refeito. Se precisar refazer, não é preciso mandar os links de novo.
+
+## Contentful
+
+Tipo de conteúdo `people` com os campos:
+
+| Campo    | Tipo                        | Obrigatório |
+|----------|-----------------------------|-------------|
+| `name`   | Short text                  | sim         |
+| `caught` | Reference (uma entrada `people`) | sim (preenchido pelo sorteio) |
+| `phone`  | Short text, ex.: `+55 11 99999-0000` | não. Se existir, o botão do WhatsApp já abre a conversa certa |
+
+## Variáveis de ambiente
+
+Veja `.env.example`. Para rodar localmente, copie para `.env.local`. Na Vercel, cadastre as mesmas variáveis em *Settings → Environment Variables*.
+
+## Rodando localmente
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Abra http://localhost:3000.
