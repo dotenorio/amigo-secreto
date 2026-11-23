@@ -33,10 +33,10 @@ const whatsappMessage = (person) => [
 
 const whatsappUrl = (person) => {
   const text = encodeURIComponent(whatsappMessage(person))
-  // Sem telefone, o WhatsApp abre e você escolhe o contato.
-  return person.phone
-    ? `https://wa.me/${person.phone}?text=${text}`
-    : `https://wa.me/?text=${text}`
+  // api.whatsapp.com em vez de wa.me: o redirecionamento do wa.me estraga
+  // emojis (aparecem como �). Sem telefone, você escolhe o contato.
+  const phone = person.phone ? `phone=${person.phone}&` : ''
+  return `https://api.whatsapp.com/send?${phone}text=${text}`
 }
 
 const Draw = () => {

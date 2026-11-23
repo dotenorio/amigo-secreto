@@ -5,6 +5,13 @@ import { useRouter } from 'next/router'
 import styles from '../../styles/ICaught.module.css'
 import Title from '../../components/title'
 
+const Swap = ({ on, off, onText }) => (
+  <span className={styles.swap}>
+    <span aria-hidden={on} className={on ? styles.hidden : ''}>{off}</span>
+    <span aria-hidden={!on} className={on ? '' : styles.hidden}>{onText}</span>
+  </span>
+)
+
 const ICaught = () => {
   const router = useRouter()
   const { token } = router.query
@@ -70,22 +77,27 @@ const ICaught = () => {
           <p>Oi, <b>{name}</b>! O sorteio ainda não foi feito :(</p>
           <p><i>Volte neste mesmo link mais tarde.</i></p>
         </div>
-      ) : reveal ? (
-        <div className={styles.name}>
-          <p>Oi, <b>{name}</b>! Você tirou:</p>
-          <b>{caught}</b>
-          <button className={styles.hide} onClick={() => setReveal(false)}>
-            esconder
-          </button>
-        </div>
       ) : (
+        // Os dois estados ficam empilhados no mesmo lugar e só um aparece:
+        // a altura é sempre a do maior, então a tela não pula ao clicar.
         <div className={styles.noName}>
-          <p>Oi, <b>{name}</b>! Clique para revelar...</p>
-          <button className={styles.revealButton} onClick={() => setReveal(true)}>
-            ?????????
+          <p>Oi, <b>{name}</b>!</p>
+          <p><Swap on={reveal} off='Clique para revelar...' onText='Você tirou:' /></p>
+          <button
+            className={`${styles.revealButton} ${reveal ? styles.revealed : ''}`}
+            onClick={() => setReveal(!reveal)}
+            aria-label={reveal ? 'Esconder o nome' : 'Revelar o nome'}
+          >
+            <Swap on={reveal} off='?????????' onText={caught} />
           </button>
           <p>
-            <i>Tenha certeza que ninguém está olhando o_o</i>
+            <i>
+              <Swap
+                on={reveal}
+                off='Tenha certeza que ninguém está olhando o_o'
+                onText='Clique no nome para esconder'
+              />
+            </i>
           </p>
         </div>
       )}
