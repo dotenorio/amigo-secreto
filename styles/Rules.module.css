@@ -1,0 +1,21 @@
+.rules {
+  width: 100%;
+  max-width: 480px;
+  margin: 1rem 0 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  background-color: #f3f4ff;
+  border: 1px solid #d5d8fb;
+  text-align: left;
+}
+
+.rules h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.rules ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  line-height: 1.5;
+}

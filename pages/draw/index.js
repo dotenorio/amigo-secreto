@@ -25,7 +25,7 @@ const whatsappMessage = (person) => [
   `Oi, ${person.name}! 🎁`,
   '',
   'Chegou a hora do *Amigo Secreto da Família*!',
-  'Abra o link abaixo para descobrir quem você tirou.',
+  'Abra o link abaixo para descobrir quem você tirou e cadastrar 2 opções do que você quer ganhar (presente de R$ 70 a R$ 100).',
   'Ele é só seu: não mostre e não repasse pra ninguém 🤫',
   '',
   personLink(person.token),

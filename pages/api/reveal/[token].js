@@ -1,7 +1,8 @@
 import { getPeople } from '../../../lib/contentful'
 import { personToken, sameToken } from '../../../lib/token'
 
-// Revela, só para o dono do link, o nome de quem ele tirou.
+// Revela, só para o dono do link, o nome de quem ele tirou e a lista de
+// desejos dessa pessoa. Também devolve a lista do próprio dono, para editar.
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store')
 
@@ -23,7 +24,9 @@ export default async function handler(req, res) {
 
     res.status(200).json({
       name: person.name,
+      wishes: person.wishes,
       caught: caught ? caught.name : null,
+      caughtWishes: caught ? caught.wishes : [],
     })
   } catch (error) {
     console.error(error)

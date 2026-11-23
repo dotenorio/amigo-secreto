@@ -4,6 +4,9 @@ import { useRouter } from 'next/router'
 
 import styles from '../../styles/ICaught.module.css'
 import Title from '../../components/title'
+import Rules from '../../components/rules'
+
+const MAX_WISHES = 2
 
 const Swap = ({ on, off, onText }) => (
   <span className={styles.swap}>
@@ -11,6 +14,106 @@ const Swap = ({ on, off, onText }) => (
     <span aria-hidden={!on} className={on ? '' : styles.hidden}>{onText}</span>
   </span>
 )
+
+const emptyRows = (wishes = []) =>
+  Array.from({ length: MAX_WISHES }, (_, i) => ({
+    item: wishes[i]?.item || '',
+    link: wishes[i]?.link || '',
+  }))
+
+const WishList = ({ wishes }) => (
+  wishes.length === 0 ? (
+    <p className={styles.muted}>Essa pessoa ainda não cadastrou as opções dela. Volte aqui mais tarde!</p>
+  ) : (
+    <ol className={styles.wishList}>
+      {wishes.map((wish, i) => (
+        <li key={i}>
+          {wish.item}
+          {wish.link && (
+            <>
+              {' '}
+              <a href={wish.link} target='_blank' rel='noopener noreferrer nofollow'>
+                ver link ↗
+              </a>
+            </>
+          )}
+        </li>
+      ))}
+    </ol>
+  )
+)
+
+const MyWishes = ({ token, initial }) => {
+  const [rows, setRows] = useState(() => emptyRows(initial))
+  const [saved, setSaved] = useState(() => JSON.stringify(emptyRows(initial)))
+  const [status, setStatus] = useState({ kind: 'idle' })
+
+  const dirty = JSON.stringify(rows) !== saved
+
+  const update = (index, key, value) => {
+    setRows((current) => current.map((row, i) => (i === index ? { ...row, [key]: value } : row)))
+    setStatus({ kind: 'idle' })
+  }
+
+  const save = async (event) => {
+    event.preventDefault()
+    setStatus({ kind: 'saving' })
+    try {
+      const res = await fetch(`/api/wishes/${encodeURIComponent(token)}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ wishes: rows }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.error || 'Não foi possível salvar')
+
+      const next = emptyRows(data.wishes)
+      setRows(next)
+      setSaved(JSON.stringify(next))
+      setStatus({ kind: 'saved' })
+    } catch (err) {
+      setStatus({ kind: 'error', message: err.message })
+    }
+  }
+
+  return (
+    <form className={styles.myWishes} onSubmit={save}>
+      <h2>📝 O que você quer ganhar</h2>
+      <p className={styles.muted}>Só quem tirou você vai ver.</p>
+
+      {rows.map((row, i) => (
+        <fieldset key={i} className={styles.wishRow}>
+          <legend>Opção {i + 1}</legend>
+          <input
+            value={row.item}
+            onChange={(event) => update(i, 'item', event.target.value)}
+            placeholder={i === 0 ? 'Ex.: Livro "Torto Arado"' : 'Ex.: Perfume, camiseta M...'}
+            maxLength={200}
+            aria-label={`Opção ${i + 1}: o que é`}
+          />
+          <input
+            value={row.link}
+            onChange={(event) => update(i, 'link', event.target.value)}
+            placeholder='Link (opcional)'
+            inputMode='url'
+            maxLength={500}
+            aria-label={`Opção ${i + 1}: link`}
+          />
+        </fieldset>
+      ))}
+
+      <button className={styles.saveButton} type='submit' disabled={!dirty || status.kind === 'saving'}>
+        {status.kind === 'saving' ? 'Salvando...' : 'Salvar minha lista'}
+      </button>
+      {/* Linha de status com altura fixa: a tela não pula ao aparecer. */}
+      <p className={`${styles.status} ${status.kind === 'error' ? styles.statusError : ''}`} role='status'>
+        {status.kind === 'saved' && 'Lista salva! ✅'}
+        {status.kind === 'error' && status.message}
+        {status.kind === 'idle' && dirty && 'Não esqueça de salvar.'}
+      </p>
+    </form>
+  )
+}
 
 const ICaught = () => {
   const router = useRouter()
@@ -62,7 +165,7 @@ const ICaught = () => {
     )
   }
 
-  const { name, caught } = state
+  const { name, caught, wishes, caughtWishes } = state
 
   return (
     <>
@@ -72,10 +175,12 @@ const ICaught = () => {
         description='...e guarde esse nome com carinho :)'
       />
 
+      <Rules />
+
       {!caught ? (
         <div className={styles.name}>
           <p>Oi, <b>{name}</b>! O sorteio ainda não foi feito :(</p>
-          <p><i>Volte neste mesmo link mais tarde.</i></p>
+          <p><i>Volte neste mesmo link mais tarde. Enquanto isso, já cadastre suas opções aqui embaixo!</i></p>
         </div>
       ) : (
         // Os dois estados ficam empilhados no mesmo lugar e só um aparece:
@@ -99,8 +204,22 @@ const ICaught = () => {
               />
             </i>
           </p>
+          <div className={styles.caughtWishes}>
+            <Swap
+              on={reveal}
+              off={<span className={styles.muted}>As opções de presente aparecem junto com o nome.</span>}
+              onText={
+                <>
+                  <b>O que {caught} quer ganhar:</b>
+                  <WishList wishes={caughtWishes} />
+                </>
+              }
+            />
+          </div>
         </div>
       )}
+
+      <MyWishes token={token} initial={wishes} />
     </>
   )
 }
