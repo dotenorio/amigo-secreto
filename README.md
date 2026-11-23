@@ -10,6 +10,8 @@ Cada pessoa recebe pelo WhatsApp um link secreto que mostra só quem *ela* tirou
 3. Para cada pessoa, clique em **WhatsApp**. O WhatsApp abre com a mensagem e o link prontos. A lista marca quem já recebeu (só no seu navegador).
 4. A pessoa abre o link e clica para revelar o nome.
 
+A página pública `/presentes` mostra o que cada um pediu (só nomes e listas de desejos, nunca quem tirou quem).
+
 O sorteio embaralha a lista e forma uma roda (cada um tira o próximo). Por isso ninguém tira a si mesmo e o sorteio nunca trava.
 Nem o organizador vê o resultado: a área do organizador e a API nunca mostram quem tirou quem.
 
